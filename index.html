@@ -621,6 +621,22 @@
 
   var currentLang = "he";
 
+  function getLangFromURL(){
+    try {
+      var lang = new URLSearchParams(window.location.search).get("lang");
+      if (lang && translations[lang]) return lang;
+    } catch(e) {}
+    return null;
+  }
+
+  function syncURLLang(lang){
+    try {
+      var url = new URL(window.location.href);
+      url.searchParams.set("lang", lang);
+      history.replaceState(null, "", url.toString());
+    } catch(e) {}
+  }
+
   function applyLang(lang){
     currentLang = lang;
     var t = translations[lang];
@@ -642,6 +658,7 @@
     });
 
     try { localStorage.setItem("my_lang", lang); } catch(e) {}
+    syncURLLang(lang);
   }
 
   document.querySelectorAll(".lang-switch button").forEach(function(btn){
@@ -651,10 +668,15 @@
   });
 
   var savedLang = "he";
-  try {
-    var stored = localStorage.getItem("my_lang");
-    if (stored && translations[stored]) savedLang = stored;
-  } catch(e) {}
+  var urlLang = getLangFromURL();
+  if (urlLang) {
+    savedLang = urlLang;
+  } else {
+    try {
+      var stored = localStorage.getItem("my_lang");
+      if (stored && translations[stored]) savedLang = stored;
+    } catch(e) {}
+  }
   applyLang(savedLang);
 
   // ====== radio highlight ======
@@ -789,14 +811,18 @@
   });
 
   // ====== share ======
+  function shareURL(){
+    return PAGE_URL + "?lang=" + currentLang;
+  }
+
   document.getElementById("shareWhatsapp").addEventListener("click", function(){
     var t = translations[currentLang];
-    var text = encodeURIComponent(t.whatsappShareText + PAGE_URL);
+    var text = encodeURIComponent(t.whatsappShareText + shareURL());
     window.open("https://wa.me/?text=" + text, "_blank");
   });
 
   document.getElementById("copyLink").addEventListener("click", function(btn){
-    navigator.clipboard.writeText(PAGE_URL).then(function(){
+    navigator.clipboard.writeText(shareURL()).then(function(){
       var el = document.getElementById("copyLink");
       var original = el.textContent;
       el.textContent = "✓";
