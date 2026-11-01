@@ -32,14 +32,20 @@ function doPost(e) {
     }
 
     var sheet = getSheet_();
-    sheet.appendRow([
+    var nextRow = sheet.getLastRow() + 1;
+
+    // Phone must be written as plain text *before* the value is set, otherwise
+    // Sheets auto-detects it as a number and strips the leading 0.
+    sheet.getRange(nextRow, 3).setNumberFormat("@");
+
+    sheet.getRange(nextRow, 1, 1, HEADERS.length).setValues([[
       new Date(),
       String(data.fullName).substring(0, 200),
       String(data.phone).substring(0, 50),
       String(data.interestLevel).substring(0, 50),
       data.consent ? "Yes" : "No",
       String(data.lang || "")
-    ]);
+    ]]);
 
     var count = sheet.getLastRow() - 1;
     return jsonResponse_({ result: "success", count: count });
