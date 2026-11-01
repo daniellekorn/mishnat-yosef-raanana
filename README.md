@@ -12,8 +12,9 @@ Google Sheet.
 
 ## 1. Set up the Google Sheet + Apps Script backend
 
-The destination sheet already exists:
-[removed from public history]
+The destination sheet already exists (kept out of this public README on
+purpose — grab the link from your own Google Drive, and keep its sharing set
+to "Restricted" to just the people who need it).
 
 Its `Signups` tab and header row (`Timestamp | Full Name | Phone | Interest Level | WhatsApp Consent | Language`) should already be set up. **Note:** the connected Google account could only read this sheet, not edit it — if the headers aren't there yet, add them yourself or re-share the sheet with edit access and ask again.
 
