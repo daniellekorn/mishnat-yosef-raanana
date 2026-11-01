@@ -217,6 +217,10 @@
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
   .reveal.in{opacity:1;transform:translateY(0);}
 
+  @media (max-width:480px){
+    .lang-switch button{padding:5px 9px;font-size:0.72rem;}
+    .brand span{display:none;}
+  }
   @media (max-width:720px){
     .stats-grid{grid-template-columns:1fr;}
     .why-grid{grid-template-columns:1fr;}
@@ -238,6 +242,7 @@
       <button type="button" data-lang="he" class="active">עברית</button>
       <button type="button" data-lang="en">English</button>
       <button type="button" data-lang="fr">Français</button>
+      <button type="button" data-lang="es">Español</button>
     </div>
   </div>
 </div>
@@ -356,7 +361,7 @@
         </div>
 
         <div class="checkbox-row">
-          <input type="checkbox" id="consent" name="consent">
+          <input type="checkbox" id="consent" name="consent" checked>
           <label for="consent" data-i18n="labelConsent">אני מאשר/ת לצרף אותי לקבוצת וואטסאפ בנוגע לפתיחת התחנה ברעננה</label>
         </div>
 
@@ -560,6 +565,57 @@
       shareCopy: "Copier le lien",
       footerText: "Une initiative portée par des habitants pour ouvrir un point Mishnat Yosef à Ra'anana · Ce projet n'est pas géré par le réseau national officiel, mais par un groupe d'habitants qui œuvre à l'ouverture d'un point local.",
       whatsappShareText: "Mishnat Yosef arrive à Ra'anana — avec 250 familles, ça se fait ! Inscrivez-vous, sans engagement : "
+    },
+    es: {
+      brandName: "Mishnat Yosef Ra'anana",
+      heroEyebrow: "Una iniciativa vecinal en Ra'anana",
+      heroTitleHtml: "Mishnat Yosef llega a Ra'anana — <span class=\"hl\">si se unen 250 familias</span>",
+      heroSub: "Compra alimentos y productos para el hogar al precio más bajo, directo del proveedor — sin tienda, sin intermediarios. Ahorra cientos o miles de shekels al mes. Solo necesitamos 250 familias interesadas para abrir un punto en Ra'anana.",
+      heroCtaPrimary: "Quiero sumarme",
+      heroCtaSecondary: "¿Qué es exactamente?",
+      progressOf: "de",
+      progressGoal: "familias necesarias para abrir el punto",
+      progressNote: "Cada inscripción nos acerca a la apertura. Sin compromiso económico por ahora.",
+      aboutTag: "Qué es Mishnat Yosef",
+      aboutTitle: "¿Cómo funciona el ahorro?",
+      aboutBody: "Mishnat Yosef es una red nacional sin tiendas físicas, con unos 350 puntos de retiro en todo el país, que atiende a más de 55.000 familias cada semana. Se pide con anticipación y se recoge el pedido en el punto local a una hora fija — sin gastos de tienda ni intermediarios. Así se logran precios muy por debajo del mercado.",
+      stat1: "puntos en todo el país",
+      stat2: "familias que compran cada semana",
+      stat3: "tiendas físicas = cero gastos generales",
+      aboutFinePrint: "* Estos datos se basan en información pública sobre la red nacional. Los detalles exactos del punto de Ra'anana, condiciones y precios se compartirán con quienes se inscriban.",
+      videoTag: "Cómo funciona",
+      videoTitle: "Un video corto que lo explica todo",
+      whyTag: "Por qué inscribirse",
+      whyTitle: "¿Qué gano yo?",
+      why1: "Ahorra cientos o miles de shekels al mes en tu compra semanal",
+      why2: "Productos de calidad, de marcas reconocidas — no sustitutos",
+      why3: "Una comunidad que compra junta — verdadero poder de compra",
+      why4: "Cero compromiso por ahora — solo estás registrando tu interés",
+      formTag: "Siguiente paso",
+      formTitle: "Deja tus datos — sin compromiso",
+      formSub: "Toma 30 segundos. Cuantas más familias se inscriban, más cerca estaremos de abrir.",
+      labelName: "Nombre completo *",
+      labelPhone: "Teléfono *",
+      phoneError: "Ese número no parece válido. Ingresa un número israelí válido (p. ej. 050-1234567).",
+      labelInterest: "¿Qué tan seguro estás de que pedirás una vez que abra el punto? *",
+      interestDefinite: "Seguro que me uno — voy a pedir",
+      interestInterested: "Interesado/a — quiero más información",
+      interestCurious: "Solo tengo curiosidad — todavía no estoy seguro/a",
+      labelConsent: "Acepto que me agreguen a un grupo de WhatsApp sobre la apertura del punto en Ra'anana",
+      submitBtn: "Enviar",
+      successMsg: "¡Gracias por registrarte! Te contactaremos cuando nos acerquemos a las 250 familias.",
+      errorMsg: "Algo salió mal al enviar el formulario. Intenta de nuevo o contáctanos directamente.",
+      privacyNote: "Los datos se recopilan solo para evaluar la apertura de un punto en Ra'anana y para contactarte, incluido el grupo de WhatsApp. No se compartirán con terceros.",
+      contactPrefer: "¿Prefieres llamar o escribir directamente?",
+      contactCall: "Llama al: 058-627-4523",
+      contactWhatsapp: "Escribir por WhatsApp",
+      shareTag: "Cada compartido ayuda",
+      shareTitle: "¿Conoces a otra familia en Ra'anana?",
+      shareSub: "Las 250 familias importan. Compartir en WhatsApp es la forma más rápida de lograrlo.",
+      shareWhatsapp: "Compartir en WhatsApp",
+      shareCopy: "Copiar enlace",
+      footerText: "Una iniciativa vecinal para abrir un punto de Mishnat Yosef en Ra'anana · Este proyecto no está gestionado por la red nacional oficial, sino por un grupo de vecinos que trabaja para abrir un punto local.",
+      whatsappShareText: "Mishnat Yosef llega a Ra'anana — ¡con 250 familias se hace realidad! Regístrate, sin compromiso: "
     }
   };
 
