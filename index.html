@@ -120,6 +120,10 @@
   .progress-track{height:12px;border-radius:999px;background:#eee8da;overflow:hidden;}
   .progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--color-accent-dark),var(--color-accent));width:2%;transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
   .progress-note{margin-top:10px;font-size:0.82rem;color:var(--color-ink-soft);}
+  .progress-card.goal-hit{border-color:var(--color-accent);box-shadow:0 0 0 3px rgba(238,169,58,0.18),var(--shadow-md);}
+  .progress-card.goal-hit .progress-fill{background:linear-gradient(90deg,var(--color-accent),var(--color-accent-dark));}
+  .progress-card.goal-hit .goal{background:var(--color-accent);color:#2e1246;padding:3px 10px;border-radius:999px;font-weight:700;}
+  .progress-card.goal-hit .progress-note{color:var(--color-primary-dark);font-weight:600;}
 
   section{padding:64px 0;}
   .section-head{text-align:center;max-width:680px;margin:0 auto 40px;}
@@ -266,7 +270,7 @@
       <span class="goal" data-i18n="progressGoal">משפחות עד שהתחנה תיפתח</span>
     </div>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-    <div class="progress-note" data-i18n="progressNote">כל הרשמה מקרבת אותנו לפתיחה. בלי התחייבות כספית כרגע.</div>
+    <div class="progress-note" id="progressNote" data-i18n="progressNote">כל הרשמה מקרבת אותנו לפתיחה. בלי התחייבות כספית כרגע.</div>
   </div>
 </div>
 
@@ -423,6 +427,8 @@
       progressOf: "מתוך",
       progressGoal: "משפחות עד שהתחנה תיפתח",
       progressNote: "כל הרשמה מקרבת אותנו לפתיחה. בלי התחייבות כספית כרגע.",
+      goalBadge: "🎉 הגענו למטרה!",
+      goalReachedNote: "הגענו ל-250 הרשמות! מי שנרשם יקבל הודעה ברגע שיהיה אישור רשמי ממשנת יוסף לפתוח את התחנה. ממשיכים לאסוף הרשמות בינתיים — כל משפחה נוספת מחזקת את הפנייה.",
       aboutTag: "מה זה משנת יוסף",
       aboutTitle: "איך בדיוק חוסכים?",
       aboutBody: "משנת יוסף היא רשת ארצית בלי חנויות פיזיות, עם כ-350 תחנות חלוקה ברחבי הארץ ומעל 55,000 משפחות שקונות בה כל שבוע. מזמינים מראש, ואוספים את המוצרים בתחנה המקומית בשעה קבועה — בלי עלויות של חנות, ובלי יד שלישית. ככה המחירים נשארים נמוכים משמעותית ממחירי השוק.",
@@ -474,6 +480,8 @@
       progressOf: "of",
       progressGoal: "families needed to open the station",
       progressNote: "Every signup brings us closer to opening. No financial commitment right now.",
+      goalBadge: "🎉 Goal reached!",
+      goalReachedNote: "We've hit 250 signups! Everyone who signed up will be notified as soon as we get official approval from Mishnat Yosef to open the station. We're still collecting signups in the meantime — every extra family strengthens the request.",
       aboutTag: "What is Mishnat Yosef",
       aboutTitle: "How does the saving actually work?",
       aboutBody: "Mishnat Yosef is a nationwide network with no physical stores — about 350 pickup stations across the country, serving over 55,000 families every week. You order in advance and collect your order at the local station at a set time, with no store overhead and no middlemen. That's what keeps prices significantly below market rates.",
@@ -525,6 +533,8 @@
       progressOf: "sur",
       progressGoal: "familles nécessaires pour ouvrir le point",
       progressNote: "Chaque inscription nous rapproche de l'ouverture. Aucun engagement financier pour l'instant.",
+      goalBadge: "🎉 Objectif atteint !",
+      goalReachedNote: "Nous avons atteint 250 inscriptions ! Toute personne inscrite sera informée dès que nous aurons l'approbation officielle de Mishnat Yosef pour ouvrir le point. Les inscriptions restent ouvertes en attendant — chaque famille supplémentaire renforce la demande.",
       aboutTag: "Qu'est-ce que Mishnat Yosef",
       aboutTitle: "Comment fonctionne l'économie réalisée ?",
       aboutBody: "Mishnat Yosef est un réseau national sans magasins physiques, avec environ 350 points de retrait à travers le pays, servant plus de 55 000 familles chaque semaine. On commande à l'avance et on récupère sa commande au point local à une heure fixe — sans frais de magasin, sans intermédiaire. C'est ce qui permet des prix nettement inférieurs à ceux du marché.",
@@ -576,6 +586,8 @@
       progressOf: "de",
       progressGoal: "familias necesarias para abrir el punto",
       progressNote: "Cada inscripción nos acerca a la apertura. Sin compromiso económico por ahora.",
+      goalBadge: "🎉 ¡Meta alcanzada!",
+      goalReachedNote: "¡Llegamos a 250 inscripciones! Todos los que se registraron recibirán un aviso en cuanto tengamos la aprobación oficial de Mishnat Yosef para abrir el punto. Mientras tanto seguimos reuniendo inscripciones — cada familia adicional refuerza la solicitud.",
       aboutTag: "Qué es Mishnat Yosef",
       aboutTitle: "¿Cómo funciona el ahorro?",
       aboutBody: "Mishnat Yosef es una red nacional sin tiendas físicas, con unos 350 puntos de retiro en todo el país, que atiende a más de 55.000 familias cada semana. Se pide con anticipación y se recoge el pedido en el punto local a una hora fija — sin gastos de tienda ni intermediarios. Así se logran precios muy por debajo del mercado.",
@@ -659,6 +671,7 @@
 
     try { localStorage.setItem("my_lang", lang); } catch(e) {}
     syncURLLang(lang);
+    renderGoalState();
   }
 
   document.querySelectorAll(".lang-switch button").forEach(function(btn){
@@ -706,10 +719,30 @@
   }
 
   // ====== signup counter ======
+  var goalReached = false;
+
+  function renderGoalState(){
+    var t = translations[currentLang];
+    var card = document.querySelector(".progress-card");
+    var goalEl = document.querySelector(".progress-top .goal");
+    var noteEl = document.getElementById("progressNote");
+    if (!card || !goalEl || !noteEl) return;
+    card.classList.toggle("goal-hit", goalReached);
+    if (goalReached) {
+      goalEl.textContent = t.goalBadge;
+      noteEl.textContent = t.goalReachedNote;
+    } else {
+      goalEl.textContent = t.progressGoal;
+      noteEl.textContent = t.progressNote;
+    }
+  }
+
   function setProgress(count){
     var pct = Math.max(2, Math.min(100, Math.round((count / SIGNUP_GOAL) * 100)));
     document.getElementById("signupCount").textContent = count;
     document.getElementById("progressFill").style.width = pct + "%";
+    goalReached = count >= SIGNUP_GOAL;
+    renderGoalState();
   }
 
   function loadCount(){
