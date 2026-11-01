@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>משנת יוסף רעננה — הצטרפו לתחנה החדשה</title>
+<meta name="description" content="עוזרים לפתוח תחנת משנת יוסף ברעננה. 250 משפחות מעוניינות וזה קורה. הירשמו בלי התחייבות.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --color-ink:#132033;
+    --color-ink-soft:#44546b;
+    --color-primary:#163a68;
+    --color-primary-dark:#0d2847;
+    --color-accent:#eea93a;
+    --color-accent-dark:#d98f1b;
+    --color-good:#1f8a5a;
+    --color-bg:#f7f5f0;
+    --color-card:#ffffff;
+    --color-border:#e4ddd0;
+    --shadow-sm: 0 2px 10px rgba(19,32,51,0.06);
+    --shadow-md: 0 12px 32px rgba(19,32,51,0.12);
+    --radius:16px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:'Heebo', system-ui, -apple-system, sans-serif;
+    background:var(--color-bg);
+    color:var(--color-ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{max-width:100%;display:block;}
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(247,245,240,0.92);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--color-border);
+  }
+  .topbar-inner{
+    max-width:1080px;margin:0 auto;padding:12px 20px;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;color:var(--color-primary-dark);}
+  .brand-badge{
+    width:34px;height:34px;border-radius:10px;background:linear-gradient(145deg,var(--color-accent),var(--color-accent-dark));
+    display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:1rem;flex-shrink:0;
+  }
+  .lang-switch{display:flex;gap:4px;background:#eee8da;border-radius:999px;padding:4px;}
+  .lang-switch button{
+    border:none;background:transparent;padding:6px 14px;border-radius:999px;
+    font-family:inherit;font-weight:700;font-size:0.85rem;cursor:pointer;color:var(--color-ink-soft);
+    transition:all .18s ease;
+  }
+  .lang-switch button.active{background:var(--color-primary);color:#fff;box-shadow:var(--shadow-sm);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:linear-gradient(160deg,var(--color-primary) 0%, var(--color-primary-dark) 65%);
+    color:#fff;
+    padding:64px 0 86px;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(circle at 15% 20%, rgba(238,169,58,0.25), transparent 45%),
+      radial-gradient(circle at 85% 75%, rgba(255,255,255,0.08), transparent 45%);
+    pointer-events:none;
+  }
+  .hero-inner{position:relative;z-index:1;text-align:center;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);
+    padding:8px 18px;border-radius:999px;font-weight:700;font-size:0.85rem;letter-spacing:.2px;
+    margin-bottom:22px;
+  }
+  .eyebrow-dot{width:8px;height:8px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 0 4px rgba(238,169,58,0.25);}
+  .hero h1{
+    font-size:clamp(1.9rem, 4.6vw, 3.1rem);
+    font-weight:800;margin:0 0 18px;line-height:1.25;
+  }
+  .hero h1 .hl{color:var(--color-accent);}
+  .hero p.sub{
+    max-width:640px;margin:0 auto 34px;
+    font-size:clamp(1rem, 1.6vw, 1.15rem);color:rgba(255,255,255,0.88);
+  }
+  .cta-row{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:15px 30px;border-radius:12px;font-weight:800;font-size:1rem;
+    cursor:pointer;border:none;font-family:inherit;transition:transform .15s ease, box-shadow .15s ease;
+    text-decoration:none;
+  }
+  .btn-accent{background:var(--color-accent);color:#1b1304;box-shadow:0 10px 24px rgba(238,169,58,0.35);}
+  .btn-accent:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(238,169,58,0.45);}
+  .btn-ghost{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.35);}
+  .btn-ghost:hover{background:rgba(255,255,255,0.16);}
+
+  /* progress card floating over hero bottom */
+  .progress-card{
+    position:relative;z-index:2;
+    max-width:560px;margin:-46px auto 0;
+    background:var(--color-card);border-radius:var(--radius);
+    box-shadow:var(--shadow-md);
+    padding:22px 26px;
+    border:1px solid var(--color-border);
+  }
+  .progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:10px;flex-wrap:wrap;}
+  .progress-top .count{font-weight:800;font-size:1.3rem;color:var(--color-primary-dark);}
+  .progress-top .goal{font-size:0.9rem;color:var(--color-ink-soft);font-weight:600;}
+  .progress-track{height:12px;border-radius:999px;background:#eee8da;overflow:hidden;}
+  .progress-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--color-accent-dark),var(--color-accent));width:2%;transition:width 1.1s cubic-bezier(.2,.8,.2,1);}
+  .progress-note{margin-top:10px;font-size:0.82rem;color:var(--color-ink-soft);}
+
+  section{padding:64px 0;}
+  .section-head{text-align:center;max-width:680px;margin:0 auto 40px;}
+  .section-tag{
+    display:inline-block;color:var(--color-accent-dark);font-weight:800;font-size:0.8rem;
+    letter-spacing:.3px;text-transform:uppercase;margin-bottom:10px;
+  }
+  .section-head h2{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;margin:0 0 10px;color:var(--color-primary-dark);}
+  .section-head p{color:var(--color-ink-soft);margin:0;}
+
+  /* about stats */
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:36px;}
+  .stat-card{
+    background:var(--color-card);border:1px solid var(--color-border);border-radius:var(--radius);
+    padding:24px 16px;text-align:center;box-shadow:var(--shadow-sm);
+  }
+  .stat-card .num{font-size:1.9rem;font-weight:800;color:var(--color-primary);}
+  .stat-card .label{font-size:0.88rem;color:var(--color-ink-soft);margin-top:4px;}
+
+  .about-body{max-width:720px;margin:28px auto 0;color:var(--color-ink-soft);font-size:1.02rem;text-align:center;}
+  .fine-note{max-width:720px;margin:14px auto 0;color:#8a7f68;font-size:0.8rem;text-align:center;}
+
+  /* video */
+  .video-wrap{
+    max-width:760px;margin:0 auto;border-radius:var(--radius);overflow:hidden;
+    box-shadow:var(--shadow-md);border:1px solid var(--color-border);background:#000;
+    position:relative;aspect-ratio:16/9;
+  }
+  .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+
+  /* why join */
+  .why-section{background:#fff;border-top:1px solid var(--color-border);border-bottom:1px solid var(--color-border);}
+  .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:820px;margin:0 auto;}
+  .why-item{display:flex;gap:14px;align-items:flex-start;padding:18px;border-radius:14px;background:var(--color-bg);}
+  .why-icon{
+    flex-shrink:0;width:38px;height:38px;border-radius:10px;
+    background:linear-gradient(145deg,var(--color-good),#15663f);
+    color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;
+  }
+  .why-item p{margin:0;font-weight:600;color:var(--color-ink);font-size:0.97rem;}
+
+  /* form */
+  .form-card{
+    max-width:620px;margin:0 auto;background:var(--color-card);border:1px solid var(--color-border);
+    border-radius:var(--radius);box-shadow:var(--shadow-md);padding:34px 30px;
+  }
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-weight:700;font-size:0.92rem;margin-bottom:7px;color:var(--color-ink);}
+  .req{color:var(--color-accent-dark);}
+  .field input, .field textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--color-border);border-radius:10px;
+    font-family:inherit;font-size:0.98rem;background:#fcfbf8;transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .field input:focus, .field textarea:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px rgba(22,58,104,0.12);}
+  .field-error{display:none;color:#b23a3a;font-size:0.82rem;font-weight:600;margin-top:6px;}
+  .field.invalid input{border-color:#b23a3a;}
+  .field.invalid .field-error{display:block;}
+  .radio-group{display:flex;flex-direction:column;gap:10px;}
+  .radio-option{
+    display:flex;align-items:center;gap:10px;border:1.5px solid var(--color-border);border-radius:12px;
+    padding:13px 14px;cursor:pointer;transition:border-color .15s ease, background .15s ease;
+  }
+  .radio-option:hover{border-color:var(--color-accent);}
+  .radio-option input{width:auto;accent-color:var(--color-primary);flex-shrink:0;}
+  .radio-option span{font-weight:600;font-size:0.95rem;}
+  .radio-option.checked{border-color:var(--color-primary);background:#eef3f9;}
+  .checkbox-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:20px;}
+  .checkbox-row input{margin-top:3px;width:auto;accent-color:var(--color-primary);}
+  .checkbox-row label{font-size:0.88rem;color:var(--color-ink-soft);font-weight:500;}
+  .submit-btn{width:100%;padding:16px;border-radius:12px;font-size:1.05rem;}
+  .privacy-note{text-align:center;font-size:0.78rem;color:#9a8f76;margin-top:14px;}
+  .contact-note{text-align:center;font-size:0.86rem;color:var(--color-ink-soft);margin-top:16px;padding-top:16px;border-top:1px solid var(--color-border);}
+  .contact-note a{color:var(--color-primary);font-weight:700;text-decoration:none;}
+  .contact-note a:hover{text-decoration:underline;}
+  .form-msg{
+    display:none;margin-top:16px;padding:14px 16px;border-radius:10px;font-weight:700;font-size:0.92rem;text-align:center;
+  }
+  .form-msg.show{display:block;}
+  .form-msg.success{background:#e5f5ec;color:var(--color-good);border:1px solid #bfe7cf;}
+  .form-msg.error{background:#fdecec;color:#b23a3a;border:1px solid #f4c6c6;}
+
+  /* share */
+  .share-section{text-align:center;}
+  .share-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;}
+  .share-btn{
+    display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;
+    background:#fff;border:1.5px solid var(--color-border);font-weight:700;font-size:0.9rem;cursor:pointer;font-family:inherit;
+  }
+  .share-btn.whatsapp{border-color:#25D366;color:#1f7a3c;}
+  .share-btn.copy{color:var(--color-ink-soft);}
+
+  footer{padding:36px 0;text-align:center;color:#9a8f76;font-size:0.82rem;border-top:1px solid var(--color-border);}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media (max-width:720px){
+    .stats-grid{grid-template-columns:1fr;}
+    .why-grid{grid-template-columns:1fr;}
+    .hero{padding:48px 0 70px;}
+    .progress-card{margin:-38px 16px 0;}
+    section{padding:48px 0;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-badge">מ"י</div>
+      <span data-i18n="brandName">משנת יוסף רעננה</span>
+    </div>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="he" class="active">עברית</button>
+      <button type="button" data-lang="en">English</button>
+      <button type="button" data-lang="fr">Français</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow"><span class="eyebrow-dot"></span><span data-i18n="heroEyebrow">יוזמה קהילתית ברעננה</span></span>
+    <h1 data-i18n-html="heroTitle">משנת יוסף מגיעה לרעננה — <span class="hl">אם נהיה 250 משפחות</span></h1>
+    <p class="sub" data-i18n="heroSub">קונים מוצרי מזון וצריכה לבית במחירים הכי נמוכים, ישירות מהספק — בלי חנות, בלי תיווך. חוסכים מאות עד אלפי שקלים בחודש. צריך רק 250 משפחות מעוניינות כדי לפתוח תחנה ברעננה.</p>
+    <div class="cta-row">
+      <a href="#form" class="btn btn-accent" data-i18n="heroCtaPrimary">אני רוצה תחנה ברעננה</a>
+      <a href="#about" class="btn btn-ghost" data-i18n="heroCtaSecondary">מה זה בכלל?</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="progress-card reveal">
+    <div class="progress-top">
+      <span class="count"><span id="signupCount">—</span> <span data-i18n="progressOf">מתוך</span> 250</span>
+      <span class="goal" data-i18n="progressGoal">משפחות עד שהתחנה תיפתח</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-note" data-i18n="progressNote">כל הרשמה מקרבת אותנו לפתיחה. בלי התחייבות כספית כרגע.</div>
+  </div>
+</div>
+
+<main>
+  <section id="about">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag" data-i18n="aboutTag">מה זה משנת יוסף</span>
+        <h2 data-i18n="aboutTitle">איך בדיוק חוסכים?</h2>
+      </div>
+      <p class="about-body reveal" data-i18n="aboutBody">משנת יוסף היא רשת ארצית בלי חנויות פיזיות, עם כ-350 תחנות חלוקה ברחבי הארץ ומעל 55,000 משפחות שקונות בה כל שבוע. מזמינים מראש, ואוספים את המוצרים בתחנה המקומית בשעה קבועה — בלי עלויות של חנות, ובלי יד שלישית. ככה המחירים נשארים נמוכים משמעותית ממחירי השוק.</p>
+      <div class="stats-grid">
+        <div class="stat-card reveal">
+          <div class="num">350+</div>
+          <div class="label" data-i18n="stat1">תחנות ברחבי הארץ</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="num">55,000+</div>
+          <div class="label" data-i18n="stat2">משפחות קונות כל שבוע</div>
+        </div>
+        <div class="stat-card reveal">
+          <div class="num">0</div>
+          <div class="label" data-i18n="stat3">חנויות פיזיות = בלי תקורה</div>
+        </div>
+      </div>
+      <p class="fine-note" data-i18n="aboutFinePrint">* הנתונים מבוססים על מידע פומבי על הרשת הארצית. פרטי התחנה ברעננה, תנאי ההצטרפות והמחירים המדויקים יימסרו למי שנרשמים.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag" data-i18n="videoTag">איך זה עובד</span>
+        <h2 data-i18n="videoTitle">סרטון קצר שמסביר הכול</h2>
+      </div>
+      <div class="video-wrap reveal">
+        <iframe src="https://www.youtube.com/embed/kQblikrI9sU" title="Mishnat Yosef" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="why-section">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag" data-i18n="whyTag">למה להירשם</span>
+        <h2 data-i18n="whyTitle">מה יוצא לי מזה?</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item reveal"><div class="why-icon">₪</div><p data-i18n="why1">חיסכון של מאות עד אלפי שקלים בחודש בקניות השבועיות</p></div>
+        <div class="why-item reveal"><div class="why-icon">✓</div><p data-i18n="why2">מוצרים איכותיים ממותגים מוכרים — לא תחליפים</p></div>
+        <div class="why-item reveal"><div class="why-icon">◎</div><p data-i18n="why3">כוח קנייה קהילתי — ביחד משפיעים על המחיר</p></div>
+        <div class="why-item reveal"><div class="why-icon">0</div><p data-i18n="why4">אפס התחייבות כרגע — רק רישום להתעניינות</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="form">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="section-tag" data-i18n="formTag">הצעד הבא</span>
+        <h2 data-i18n="formTitle">משאירים פרטים — בלי התחייבות</h2>
+        <p data-i18n="formSub">לוקח 30 שניות. ככל שיותר משפחות נרשמות, כך מתקרבים לפתיחה.</p>
+      </div>
+
+      <form class="form-card reveal" id="signupForm" novalidate>
+        <div class="field">
+          <label for="fullName" data-i18n="labelName">שם מלא <span class="req">*</span></label>
+          <input type="text" id="fullName" name="fullName" required autocomplete="name">
+        </div>
+        <div class="field">
+          <label for="phone" data-i18n="labelPhone">טלפון <span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" required autocomplete="tel" inputmode="tel" placeholder="050-0000000">
+          <div class="field-error" id="phoneError" data-i18n="phoneError">מספר הטלפון לא תקין. יש להזין מספר ישראלי תקני (לדוגמה 050-1234567).</div>
+        </div>
+
+        <div class="field">
+          <label data-i18n="labelInterest">כמה אתם בטוחים שתזמינו אם התחנה תיפתח? <span class="req">*</span></label>
+          <div class="radio-group" id="interestGroup">
+            <label class="radio-option">
+              <input type="radio" name="interestLevel" value="definite" required>
+              <span data-i18n="interestDefinite">בהחלט אצטרף ואזמין</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="interestLevel" value="interested">
+              <span data-i18n="interestInterested">מעוניין/ת, רוצה לדעת עוד פרטים</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="interestLevel" value="curious">
+              <span data-i18n="interestCurious">סתם בודק/ת, עדיין לא בטוח/ה</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="checkbox-row">
+          <input type="checkbox" id="consent" name="consent">
+          <label for="consent" data-i18n="labelConsent">אני מאשר/ת לצרף אותי לקבוצת וואטסאפ בנוגע לפתיחת התחנה ברעננה</label>
+        </div>
+
+        <button type="submit" class="btn btn-accent submit-btn" id="submitBtn" data-i18n="submitBtn">שליחה</button>
+
+        <div class="form-msg success" id="successMsg" data-i18n="successMsg">תודה שנרשמתם! נחזור אליכם כשנתקרב ל-250 משפחות.</div>
+        <div class="form-msg error" id="errorMsg" data-i18n="errorMsg">משהו השתבש בשליחה. אפשר לנסות שוב, או ליצור קשר ישירות.</div>
+
+        <p class="privacy-note" data-i18n="privacyNote">הפרטים נאספים רק לצורך פתיחת תחנה ברעננה ויצירת קשר, לרבות קבוצת וואטסאפ. הפרטים לא יועברו לצד שלישי.</p>
+        <p class="contact-note">
+          <span data-i18n="contactPrefer">מעדיפים להתקשר או לשלוח הודעה ישירות?</span>
+          <a href="tel:+972586274523" data-i18n="contactCall">התקשרו: 058-627-4523</a>
+          ·
+          <a href="https://wa.me/972586274523" target="_blank" rel="noopener" data-i18n="contactWhatsapp">כתבו בוואטסאפ</a>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <section class="share-section">
+    <div class="wrap">
+      <div class="section-head reveal" style="margin-bottom:0;">
+        <span class="section-tag" data-i18n="shareTag">כל שיתוף עוזר</span>
+        <h2 data-i18n="shareTitle">מכירים עוד משפחה ברעננה?</h2>
+        <p data-i18n="shareSub">כל 250 המשפחות חשובות. שיתוף בוואטסאפ זה הדרך הכי מהירה לקרב אותנו למטרה.</p>
+      </div>
+      <div class="share-row reveal">
+        <button class="share-btn whatsapp" id="shareWhatsapp" type="button" data-i18n="shareWhatsapp">שיתוף בוואטסאפ</button>
+        <button class="share-btn copy" id="copyLink" type="button" data-i18n="shareCopy">העתקת הקישור</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p data-i18n="footerText">יוזמה קהילתית לפתיחת תחנת משנת יוסף ברעננה · הפרויקט אינו מטעם הרשת הארצית הרשמית אלא קבוצת תושבים שפועלת לפתיחת תחנה מקומית.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+  // ====== CONFIG ======
+  // Paste the Web App URL you get after deploying apps-script/Code.gs (see README.md).
+  var SHEETS_WEB_APP_URL = "PASTE_YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+  var SIGNUP_GOAL = 250;
+  var PAGE_URL = "https://example.com"; // replace with the real published URL once hosted
+
+  // ====== TRANSLATIONS ======
+  var translations = {
+    he: {
+      brandName: "משנת יוסף רעננה",
+      heroEyebrow: "יוזמה קהילתית ברעננה",
+      heroTitleHtml: "משנת יוסף מגיעה לרעננה — <span class=\"hl\">אם נהיה 250 משפחות</span>",
+      heroSub: "קונים מוצרי מזון וצריכה לבית במחירים הכי נמוכים, ישירות מהספק — בלי חנות, בלי תיווך. חוסכים מאות עד אלפי שקלים בחודש. צריך רק 250 משפחות מעוניינות כדי לפתוח תחנה ברעננה.",
+      heroCtaPrimary: "אני רוצה תחנה ברעננה",
+      heroCtaSecondary: "מה זה בכלל?",
+      progressOf: "מתוך",
+      progressGoal: "משפחות עד שהתחנה תיפתח",
+      progressNote: "כל הרשמה מקרבת אותנו לפתיחה. בלי התחייבות כספית כרגע.",
+      aboutTag: "מה זה משנת יוסף",
+      aboutTitle: "איך בדיוק חוסכים?",
+      aboutBody: "משנת יוסף היא רשת ארצית בלי חנויות פיזיות, עם כ-350 תחנות חלוקה ברחבי הארץ ומעל 55,000 משפחות שקונות בה כל שבוע. מזמינים מראש, ואוספים את המוצרים בתחנה המקומית בשעה קבועה — בלי עלויות של חנות, ובלי יד שלישית. ככה המחירים נשארים נמוכים משמעותית ממחירי השוק.",
+      stat1: "תחנות ברחבי הארץ",
+      stat2: "משפחות קונות כל שבוע",
+      stat3: "חנויות פיזיות = בלי תקורה",
+      aboutFinePrint: "* הנתונים מבוססים על מידע פומבי על הרשת הארצית. פרטי התחנה ברעננה, תנאי ההצטרפות והמחירים המדויקים יימסרו למי שנרשמים.",
+      videoTag: "איך זה עובד",
+      videoTitle: "סרטון קצר שמסביר הכול",
+      whyTag: "למה להירשם",
+      whyTitle: "מה יוצא לי מזה?",
+      why1: "חיסכון של מאות עד אלפי שקלים בחודש בקניות השבועיות",
+      why2: "מוצרים איכותיים ממותגים מוכרים — לא תחליפים",
+      why3: "כוח קנייה קהילתי — ביחד משפיעים על המחיר",
+      why4: "אפס התחייבות כרגע — רק רישום להתעניינות",
+      formTag: "הצעד הבא",
+      formTitle: "משאירים פרטים — בלי התחייבות",
+      formSub: "לוקח 30 שניות. ככל שיותר משפחות נרשמות, כך מתקרבים לפתיחה.",
+      labelName: "שם מלא *",
+      labelPhone: "טלפון *",
+      phoneError: "מספר הטלפון לא תקין. יש להזין מספר ישראלי תקני (לדוגמה 050-1234567).",
+      labelInterest: "כמה אתם בטוחים שתזמינו אם התחנה תיפתח? *",
+      interestDefinite: "בהחלט אצטרף ואזמין",
+      interestInterested: "מעוניין/ת, רוצה לדעת עוד פרטים",
+      interestCurious: "סתם בודק/ת, עדיין לא בטוח/ה",
+      labelConsent: "אני מאשר/ת לצרף אותי לקבוצת וואטסאפ בנוגע לפתיחת התחנה ברעננה",
+      submitBtn: "שליחה",
+      successMsg: "תודה שנרשמתם! נחזור אליכם כשנתקרב ל-250 משפחות.",
+      errorMsg: "משהו השתבש בשליחה. אפשר לנסות שוב, או ליצור קשר ישירות.",
+      privacyNote: "הפרטים נאספים רק לצורך פתיחת תחנה ברעננה ויצירת קשר, לרבות קבוצת וואטסאפ. הפרטים לא יועברו לצד שלישי.",
+      contactPrefer: "מעדיפים להתקשר או לשלוח הודעה ישירות?",
+      contactCall: "התקשרו: 058-627-4523",
+      contactWhatsapp: "כתבו בוואטסאפ",
+      shareTag: "כל שיתוף עוזר",
+      shareTitle: "מכירים עוד משפחה ברעננה?",
+      shareSub: "כל 250 המשפחות חשובות. שיתוף בוואטסאפ זה הדרך הכי מהירה לקרב אותנו למטרה.",
+      shareWhatsapp: "שיתוף בוואטסאפ",
+      shareCopy: "העתקת הקישור",
+      footerText: "יוזמה קהילתית לפתיחת תחנת משנת יוסף ברעננה · הפרויקט אינו מטעם הרשת הארצית הרשמית אלא קבוצת תושבים שפועלת לפתיחת תחנה מקומית.",
+      whatsappShareText: "משנת יוסף מגיעה לרעננה — ואם נהיה 250 משפחות זה קורה! נרשמים בלי התחייבות: "
+    },
+    en: {
+      brandName: "Mishnat Yosef Ra'anana",
+      heroEyebrow: "A resident-led initiative in Ra'anana",
+      heroTitleHtml: "Mishnat Yosef is coming to Ra'anana — <span class=\"hl\">if 250 families join</span>",
+      heroSub: "Buy groceries and household goods at the lowest prices, straight from the supplier — no store, no middlemen. Save hundreds to thousands of shekels a month. We just need 250 interested families to open a station in Ra'anana.",
+      heroCtaPrimary: "Count me in",
+      heroCtaSecondary: "What is this, exactly?",
+      progressOf: "of",
+      progressGoal: "families needed to open the station",
+      progressNote: "Every signup brings us closer to opening. No financial commitment right now.",
+      aboutTag: "What is Mishnat Yosef",
+      aboutTitle: "How does the saving actually work?",
+      aboutBody: "Mishnat Yosef is a nationwide network with no physical stores — about 350 pickup stations across the country, serving over 55,000 families every week. You order in advance and collect your order at the local station at a set time, with no store overhead and no middlemen. That's what keeps prices significantly below market rates.",
+      stat1: "stations nationwide",
+      stat2: "families ordering weekly",
+      stat3: "physical stores = no overhead",
+      aboutFinePrint: "* Figures are based on public information about the national network. Exact Ra'anana station details, terms and prices will be shared with everyone who signs up.",
+      videoTag: "How it works",
+      videoTitle: "A short video that explains it all",
+      whyTag: "Why sign up",
+      whyTitle: "What's in it for me?",
+      why1: "Save hundreds to thousands of shekels a month on your weekly shopping",
+      why2: "Quality products from well-known brands — not substitutes",
+      why3: "A community buying together — real purchasing power",
+      why4: "Zero commitment right now — just registering interest",
+      formTag: "Next step",
+      formTitle: "Leave your details — no commitment",
+      formSub: "Takes 30 seconds. The more families sign up, the closer we get to opening.",
+      labelName: "Full name *",
+      labelPhone: "Phone *",
+      phoneError: "That doesn't look like a valid phone number. Please enter a valid Israeli number (e.g. 050-1234567).",
+      labelInterest: "How sure are you that you'll order once the station opens? *",
+      interestDefinite: "Definitely joining — I will order",
+      interestInterested: "Interested — I'd like more details",
+      interestCurious: "Just curious — not sure yet",
+      labelConsent: "I agree to be added to a WhatsApp group about the Ra'anana station opening",
+      submitBtn: "Submit",
+      successMsg: "Thanks for signing up! We'll be in touch as we get closer to 250 families.",
+      errorMsg: "Something went wrong submitting the form. Please try again, or contact us directly.",
+      privacyNote: "Details are collected only to open a station in Ra'anana and to get in touch, including the WhatsApp group. They will not be shared with third parties.",
+      contactPrefer: "Prefer to call or message directly?",
+      contactCall: "Call: 058-627-4523",
+      contactWhatsapp: "Message on WhatsApp",
+      shareTag: "Every share helps",
+      shareTitle: "Know another family in Ra'anana?",
+      shareSub: "All 250 families matter. Sharing on WhatsApp is the fastest way to get us there.",
+      shareWhatsapp: "Share on WhatsApp",
+      shareCopy: "Copy link",
+      footerText: "A resident-led initiative to open a Mishnat Yosef station in Ra'anana · This project is not run by the official national network, but by a group of local residents working to open a local station.",
+      whatsappShareText: "Mishnat Yosef is coming to Ra'anana — if we get 250 families it's happening! Sign up, no commitment: "
+    },
+    fr: {
+      brandName: "Mishnat Yosef Ra'anana",
+      heroEyebrow: "Une initiative portée par des habitants de Ra'anana",
+      heroTitleHtml: "Mishnat Yosef arrive à Ra'anana — <span class=\"hl\">si 250 familles se joignent</span>",
+      heroSub: "Achetez des produits alimentaires et ménagers au prix le plus bas, directement auprès du fournisseur — sans magasin, sans intermédiaire. Économisez des centaines, voire des milliers de shekels par mois. Il suffit de 250 familles intéressées pour ouvrir un point à Ra'anana.",
+      heroCtaPrimary: "Je veux en faire partie",
+      heroCtaSecondary: "C'est quoi, exactement ?",
+      progressOf: "sur",
+      progressGoal: "familles nécessaires pour ouvrir le point",
+      progressNote: "Chaque inscription nous rapproche de l'ouverture. Aucun engagement financier pour l'instant.",
+      aboutTag: "Qu'est-ce que Mishnat Yosef",
+      aboutTitle: "Comment fonctionne l'économie réalisée ?",
+      aboutBody: "Mishnat Yosef est un réseau national sans magasins physiques, avec environ 350 points de retrait à travers le pays, servant plus de 55 000 familles chaque semaine. On commande à l'avance et on récupère sa commande au point local à une heure fixe — sans frais de magasin, sans intermédiaire. C'est ce qui permet des prix nettement inférieurs à ceux du marché.",
+      stat1: "points de retrait dans le pays",
+      stat2: "familles qui commandent chaque semaine",
+      stat3: "magasins physiques = zéro frais généraux",
+      aboutFinePrint: "* Ces chiffres sont basés sur des informations publiques sur le réseau national. Les détails exacts du point de Ra'anana, les conditions et les prix seront communiqués à toute personne inscrite.",
+      videoTag: "Comment ça marche",
+      videoTitle: "Une courte vidéo qui explique tout",
+      whyTag: "Pourquoi s'inscrire",
+      whyTitle: "Qu'est-ce que j'y gagne ?",
+      why1: "Économisez des centaines, voire des milliers de shekels par mois sur vos achats hebdomadaires",
+      why2: "Des produits de qualité, de marques reconnues — pas des substituts",
+      why3: "Une communauté qui achète ensemble — un vrai pouvoir d'achat",
+      why4: "Aucun engagement pour l'instant — juste une inscription d'intérêt",
+      formTag: "Prochaine étape",
+      formTitle: "Laissez vos coordonnées — sans engagement",
+      formSub: "Cela prend 30 secondes. Plus il y a de familles inscrites, plus on se rapproche de l'ouverture.",
+      labelName: "Nom complet *",
+      labelPhone: "Téléphone *",
+      phoneError: "Ce numéro ne semble pas valide. Merci d'indiquer un numéro israélien valide (ex. 050-1234567).",
+      labelInterest: "Dans quelle mesure êtes-vous sûr(e) de commander une fois le point ouvert ? *",
+      interestDefinite: "Je rejoins certainement — je commanderai",
+      interestInterested: "Intéressé(e) — j'aimerais en savoir plus",
+      interestCurious: "Juste curieux(se) — pas encore sûr(e)",
+      labelConsent: "J'accepte d'être ajouté(e) à un groupe WhatsApp au sujet de l'ouverture du point à Ra'anana",
+      submitBtn: "Envoyer",
+      successMsg: "Merci pour votre inscription ! Nous vous recontacterons en approchant des 250 familles.",
+      errorMsg: "Une erreur est survenue lors de l'envoi. Veuillez réessayer, ou nous contacter directement.",
+      privacyNote: "Les informations sont collectées uniquement pour ouvrir un point à Ra'anana et vous recontacter, y compris via le groupe WhatsApp. Elles ne seront pas partagées avec des tiers.",
+      contactPrefer: "Vous préférez appeler ou écrire directement ?",
+      contactCall: "Appelez : 058-627-4523",
+      contactWhatsapp: "Écrire sur WhatsApp",
+      shareTag: "Chaque partage compte",
+      shareTitle: "Vous connaissez une autre famille à Ra'anana ?",
+      shareSub: "Chacune des 250 familles compte. Partager sur WhatsApp est le moyen le plus rapide d'y arriver.",
+      shareWhatsapp: "Partager sur WhatsApp",
+      shareCopy: "Copier le lien",
+      footerText: "Une initiative portée par des habitants pour ouvrir un point Mishnat Yosef à Ra'anana · Ce projet n'est pas géré par le réseau national officiel, mais par un groupe d'habitants qui œuvre à l'ouverture d'un point local.",
+      whatsappShareText: "Mishnat Yosef arrive à Ra'anana — avec 250 familles, ça se fait ! Inscrivez-vous, sans engagement : "
+    }
+  };
+
+  var currentLang = "he";
+
+  function applyLang(lang){
+    currentLang = lang;
+    var t = translations[lang];
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === "he") ? "rtl" : "ltr";
+
+    document.querySelectorAll("[data-i18n]").forEach(function(el){
+      var key = el.getAttribute("data-i18n");
+      if (t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll("[data-i18n-html]").forEach(function(el){
+      var key = el.getAttribute("data-i18n-html");
+      var htmlKey = key + "Html";
+      if (t[htmlKey] !== undefined) el.innerHTML = t[htmlKey];
+    });
+
+    document.querySelectorAll(".lang-switch button").forEach(function(btn){
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+    });
+
+    try { localStorage.setItem("my_lang", lang); } catch(e) {}
+  }
+
+  document.querySelectorAll(".lang-switch button").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      applyLang(btn.getAttribute("data-lang"));
+    });
+  });
+
+  var savedLang = "he";
+  try {
+    var stored = localStorage.getItem("my_lang");
+    if (stored && translations[stored]) savedLang = stored;
+  } catch(e) {}
+  applyLang(savedLang);
+
+  // ====== radio highlight ======
+  document.querySelectorAll('#interestGroup input[type="radio"]').forEach(function(input){
+    input.addEventListener("change", function(){
+      document.querySelectorAll('#interestGroup .radio-option').forEach(function(opt){
+        opt.classList.remove("checked");
+      });
+      input.closest(".radio-option").classList.add("checked");
+    });
+  });
+
+  // ====== reveal on scroll ======
+  var revealEls = document.querySelectorAll(".reveal");
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  }
+
+  // ====== signup counter ======
+  function setProgress(count){
+    var pct = Math.max(2, Math.min(100, Math.round((count / SIGNUP_GOAL) * 100)));
+    document.getElementById("signupCount").textContent = count;
+    document.getElementById("progressFill").style.width = pct + "%";
+  }
+
+  function loadCount(){
+    if (!SHEETS_WEB_APP_URL || SHEETS_WEB_APP_URL.indexOf("PASTE_YOUR") === 0) {
+      document.getElementById("signupCount").textContent = "?";
+      return;
+    }
+    fetch(SHEETS_WEB_APP_URL + "?action=count")
+      .then(function(res){ return res.json(); })
+      .then(function(data){ setProgress(data.count || 0); })
+      .catch(function(){ document.getElementById("signupCount").textContent = "?"; });
+  }
+  loadCount();
+
+  // ====== phone validation ======
+  // Accepts Israeli numbers written as 0XXXXXXXX / 0XXXXXXXXX (9-10 digits after
+  // the leading 0, spaces/dashes/parens allowed) or +972XXXXXXXXX.
+  function normalizePhone(raw){
+    return raw.replace(/[\s\-\(\)]/g, "");
+  }
+  function isValidPhone(raw){
+    var v = normalizePhone(raw);
+    return /^\+972\d{8,9}$/.test(v) || /^0\d{8,9}$/.test(v);
+  }
+
+  var phoneField = document.getElementById("phone");
+  var phoneFieldWrap = phoneField.closest(".field");
+  phoneField.addEventListener("input", function(){
+    phoneFieldWrap.classList.remove("invalid");
+  });
+
+  // ====== form submit ======
+  var form = document.getElementById("signupForm");
+  var successMsg = document.getElementById("successMsg");
+  var errorMsg = document.getElementById("errorMsg");
+  var submitBtn = document.getElementById("submitBtn");
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    successMsg.classList.remove("show");
+    errorMsg.classList.remove("show");
+    phoneFieldWrap.classList.remove("invalid");
+
+    var interestEl = form.querySelector('input[name="interestLevel"]:checked');
+    var phoneValue = form.phone.value.trim();
+
+    if (!phoneValue || !isValidPhone(phoneValue)) {
+      phoneFieldWrap.classList.add("invalid");
+      phoneField.focus();
+      return;
+    }
+    if (!form.fullName.value.trim() || !interestEl) {
+      errorMsg.classList.add("show");
+      return;
+    }
+
+    var payload = {
+      fullName: form.fullName.value.trim(),
+      phone: form.phone.value.trim(),
+      interestLevel: interestEl.value,
+      consent: form.consent.checked,
+      lang: currentLang
+    };
+
+    if (!SHEETS_WEB_APP_URL || SHEETS_WEB_APP_URL.indexOf("PASTE_YOUR") === 0) {
+      console.warn("Signup payload (Apps Script URL not configured yet):", payload);
+      successMsg.classList.add("show");
+      form.reset();
+      return;
+    }
+
+    submitBtn.disabled = true;
+    var originalText = submitBtn.textContent;
+    submitBtn.textContent = "...";
+
+    fetch(SHEETS_WEB_APP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if (data && data.result === "success") {
+          successMsg.classList.add("show");
+          form.reset();
+          document.querySelectorAll('#interestGroup .radio-option').forEach(function(opt){
+            opt.classList.remove("checked");
+          });
+          if (typeof data.count === "number") setProgress(data.count);
+        } else {
+          errorMsg.classList.add("show");
+        }
+      })
+      .catch(function(){ errorMsg.classList.add("show"); })
+      .finally(function(){
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      });
+  });
+
+  // ====== share ======
+  document.getElementById("shareWhatsapp").addEventListener("click", function(){
+    var t = translations[currentLang];
+    var text = encodeURIComponent(t.whatsappShareText + PAGE_URL);
+    window.open("https://wa.me/?text=" + text, "_blank");
+  });
+
+  document.getElementById("copyLink").addEventListener("click", function(btn){
+    navigator.clipboard.writeText(PAGE_URL).then(function(){
+      var el = document.getElementById("copyLink");
+      var original = el.textContent;
+      el.textContent = "✓";
+      setTimeout(function(){ el.textContent = original; }, 1500);
+    }).catch(function(){});
+  });
+
+})();
+</script>
+</body>
+</html>
